@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+<body background="Image/bk.jpg">
+    <h3>
+        <font face="Sans-serif" size="6" color="Blue">Age Calculator</font>
+    </h3>
+    <center>
+        <form>  
+            <p>
+            The Age Calculator can determine the age or interval between two dates. 
+            The calculated age will be displayed in years, months and Days.
+            </p>
+            <p style="padding-left: 35px;">
+                <font face="Arial" size="2" color="White">Date of Birth :</font>
+                <input type="date" id="DoB_selector" style="width: 200px;"/>
+            <p>
+                <font face="Arial" size="2" color="White">Age at the Date Of :</font>
+                <input type="date" id="age_at_dateof_selector" style="width: 200px;"/>
+                <br/>
+                <input type="button" style="background-color: green; padding:5px; 
+                    color: white; margin-top: 10px;" value="Calculate" id="Calculate_btn" onclick="ComputeAge()"/>
+                <center>
+                    <p id="yeardisplay">Your Age is: </p>
+                    </center>
+        </form>
+    </center>
+    <script type="text/javascript">
+        function ComputeAge(){
+            try {
+                var dob = new Date(document.getElementById("DoB_selector").value); 
+                var targetdate = new Date(document.getElementById("age_at_dateof_selector").value);
+
+                if(targetdate.getFullYear() < dob.getFullYear()){
+                    throw "Error: Target Date cannot earlier than Date of Birth";
+                    return;
+                }
+
+                var days;
+	            var ageYears, ageMonths, ageDays;
+                //
+	            days = Math.floor((targetdate-dob)/(1000*3600*24)); //Total Timesapn
+
+	            ageYears = Math.floor(days/365);  // Compute Age years in Timesapn
+	            ageMonths = Math.floor((days%365)/31);  // Compute Age months in Timesapn
+	            ageDays = days - (ageYears*365) - (ageMonths*31); // Compute days months in Timesapn
+                
+	            
+                window.alert("Your Age is:"+ageYears+" Year(s) "+ageMonths+" Month(s) and "+ageDays+" day(s)");
+            } catch (error) {
+                window.alert(error);
+            }
+        }
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        var yyyy = today.getFullYear();
+
+        today =  yyyy + '-'+ mm + '-' + dd;
+        document.getElementById("yeardisplay").style.display="none";
+        document.getElementById("DoB_selector").value="1990-02-09";
+        document.getElementById("age_at_dateof_selector").value= today;
+    </script>
+</body>
+</html>
